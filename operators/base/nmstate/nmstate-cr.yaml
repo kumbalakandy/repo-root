@@ -4,3 +4,4 @@ metadata:
   name: nmstate
   annotations:
     argocd.argoproj.io/sync-wave: "5"
+
