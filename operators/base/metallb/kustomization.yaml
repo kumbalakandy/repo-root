@@ -1,0 +1,6 @@
+resources:
+  - namespace.yaml
+  - operatorgroup.yaml
+  - subs.yaml
+  - metallb-cr.yaml
+
