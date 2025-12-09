@@ -4,7 +4,7 @@ metadata:
   name: metallb-pool
   namespace: metallb-system
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "200"
 spec:
   addresses:
     - 172.16.1.100-172.16.1.120
