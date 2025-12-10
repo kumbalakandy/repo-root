@@ -12,7 +12,7 @@ spec:
         id: dn
         email: mail
         name: cn
-        preferredUsername: sAMAccountName
+        preferredUsername: [sAMAccountName]
       bindDN: "CN=svc_hub_ldap,OU=service_admin,DC=kodevirtual,DC=com"
       bindPassword:
         name: ldap-secret

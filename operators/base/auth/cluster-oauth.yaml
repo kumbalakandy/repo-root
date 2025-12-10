@@ -14,7 +14,7 @@ spec:
         id: dn
         email: mail
         name:  cn 
-        preferredUsername:  sAMAccountName
+        preferredUsername:  [sAMAccountName]
       bindDN: 'CN=OCP SVC Account,OU=service_admin,DC=kodevirtual,DC=com'
       bindPassword:
         name: ldap-secret
