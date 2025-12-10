@@ -1,0 +1,38 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupSync
+metadata:
+  name: ldap-groupsync
+spec:
+  providers:
+  - ldap:
+      credentialsSecret:
+        name: ldap-group-sync
+        namespace: group-sync-operator
+      insecure: false
+      ca:
+        name: ldap-ca-cert
+        namespace: group-sync-operator
+        kind: Secret
+      rfc2307:
+        groupMembershipAttributes:
+        - member
+        groupNameAttributes:
+        - cn
+        groupUIDAttribute: dn
+        groupsQuery:
+          baseDN: 'OU=Tier 1, OU=Admins,DC=kodevirtual,DC=com'
+          derefAliases: never
+          filter: (objectClass=group)
+          scope: sub
+        tolerateMemberNotFoundErrors: true
+        tolerateMemberOutOfScopeErrors: true
+        userNameAttributes:
+        - sAMAccountName
+        userUIDAttribute: dn
+        usersQuery:
+          baseDN: 'OU=Tier 1, OU=Admins,DC=kodevirtual,DC=com'
+          derefAliases: never
+          scope: sub
+      url: 'ldaps://kodevirtual.com:636'
+    name: ldap
+  schedule: '*/5 * * * *'

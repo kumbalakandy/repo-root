@@ -5,4 +5,7 @@ resources:
   - ../../base
   - metallb/ippool.yaml
   - metallb/l2adv.yaml
+  - auth/ldap-secret.yaml
+  - auth/patch-oauth-binddn.yaml
+  - group-sync/group-sync-ldap-secret.yaml
 

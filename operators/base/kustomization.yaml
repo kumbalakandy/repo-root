@@ -5,4 +5,6 @@ resources:
   - metallb
   - nmstate
   - loki
+  - auth
+  - group-sync
 
