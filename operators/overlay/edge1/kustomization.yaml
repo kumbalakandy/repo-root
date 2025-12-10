@@ -6,7 +6,13 @@ resources:
   - metallb/ippool.yaml
   - metallb/l2adv.yaml
   - auth/ldap-secret.yaml
-  - auth/patch-oauth-binddn.yaml
   - group-sync/group-sync-ldap-secret.yaml
-patchesStrategicMerge:
-  - auth/patch-oauth-binddn.yaml
+
+patches:
+  - path: auth/patch-oauth-binddn.yaml
+    target:
+      group: config.openshift.io
+      version: v1
+      kind: OAuth
+      name: cluster
+
