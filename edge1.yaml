@@ -1,0 +1,253 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: group-sync-operator
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: openshift-nmstate
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: openshift-operators-redhat
+---
+apiVersion: v1
+data:
+  ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDmTCCAoGgAwIBAgIQX+5pVgEYDbxG9Ud1OCYlkzANBgkqhkiG9w0BAQsFADBT
+    MRMwEQYKCZImiZPyLGQBGRYDY29tMRswGQYKCZImiZPyLGQBGRYLa29kZXZpcnR1
+    YWwxHzAdBgNVBAMTFmxhYi1kYy5rb2RldmlydHVhbC5jb20wHhcNMjQwMjE1MTEx
+    MTUwWhcNMjkwMjE1MTEyMTQ5WjBTMRMwEQYKCZImiZPyLGQBGRYDY29tMRswGQYK
+    CZImiZPyLGQBGRYLa29kZXZpcnR1YWwxHzAdBgNVBAMTFmxhYi1kYy5rb2Rldmly
+    dHVhbC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCcTwF3Ry8G
+    lpybLSydzkSAifHb45FTeOLPEIOG5Thj+BUHJ4VG8P080OowY8LdjZmbyfbFuLOf
+    aarTszZH75RdgFE0hV7kD/SGUzK4JmsZn7QWPhsH8L57ip/sxuInElLlSM6o/NYP
+    8dCwsZjgkT741QaipJL+MbSJXev7OBYuAFVLud/NJpvSJ54YpA8G+LVAZv693JE2
+    95Os7MtyWrrwLMrsGpfBctrk9ArSJySFkzvLLOlX5mGYEy1Cc/bzNSSTHkky+GX5
+    8c492JC+UA2GVjhkutXcPIw50DWVS+TbJ3tAoSziJL42LxKHzsJ35yL+EjoRK9Vx
+    ffHBo2X37eUdAgMBAAGjaTBnMBMGCSsGAQQBgjcUAgQGHgQAQwBBMA4GA1UdDwEB
+    /wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSz9iJXXiG4Q2iikWmG
+    1TKqrl982jAQBgkrBgEEAYI3FQEEAwIBADANBgkqhkiG9w0BAQsFAAOCAQEAcm3I
+    JzLApJ+7YK0pim7xr26lACKIgcoR3kJ2O3i+FES9c4z3korqhgokZTnTTh1mGENy
+    Gyarcvm5d7PvShaMtX1IWEkoCmW7Xa0mjB4BYMLwxceLauQEqTldBO3sku4EOtx5
+    RETqb81bJ4IZpipDks6LLY/5G+K+pCqxEAC1etEEXeSeH01MB1OnmuLA2iCktci/
+    AKbfkbL0V9Fic2YqzNG4WyCOBtVeh0sgr9ZWOP0spe8OAw8cKOy2/e8gr3ZWlYAH
+    EJDBSZyxPOoAYQ7nIcaheTaud3WdLxbS1ASmspiG56iUTsqKB4EzhsYRg1elJ9IQ
+    P01w1Zl5U673H1VR/A==
+    -----END CERTIFICATE-----
+kind: ConfigMap
+metadata:
+  name: ldap-ca-config-map
+  namespace: openshift-config
+---
+apiVersion: v1
+data:
+  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdLRENDQlJDZ0F3SUJBZ0lUY0FBQUFCVDJpVGxmWERVdEp3QUFBQUFBRkRBTkJna3Foa2lHOXcwQkFRc0YKQURCVE1STXdFUVlLQ1pJbWlaUHlMR1FCR1JZRFkyOXRNUnN3R1FZS0NaSW1pWlB5TEdRQkdSWUxhMjlrWlhacApjblIxWVd3eEh6QWRCZ05WQkFNVEZteGhZaTFrWXk1cmIyUmxkbWx5ZEhWaGJDNWpiMjB3SGhjTk1qUXhNVEk1Ck1UQTFOREV4V2hjTk1qVXhNVEk1TVRBMU5ERXhXakFBTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEEKTUlJQkNnS0NBUUVBdkVZdFQ3Y2N3UVV4RDJWQTEzZzdIaUgyY0J2WXlWay80SGd3MmliL3lHTi94d040NVFlbgo5MjEzbjA2OU5EcEZqR3BzL2dicjR6VWpKSXppMHFTWXZtVkZYeXlOSGFHdExFa1dlYlFsODlBcE1UMU1jM1Z4Ck83Z2NmRUZuWWkrd1BvM3poSk5RNFh6QTdaOStWT2ZNeHBNUzZkb1pjdFJLYi9FN1M3eXVhbjE5V0NBb3hjbE0KWjlMWTB0L2pvYm5KTXJGUFlldUVCSHhZdW9oMFBhRldLdlM0bE5nbENQNTcrbU1ubzZJa3F5eFg3Zmh3eEh2TwpEaEtIQ2cwbGVYQ0VLZU1OdkNNNlUzOEtPQWs1UFFkbjc1U05iOTBVS2lSNVNDT2pwWlhwQkkrMU5oMVZnR09rCkx0WDJJNHc3RTk1OVJnNW9DNEFkcUNLbnlzNTRYZ2E1OVFJREFRQUJvNElEUmpDQ0EwSXdQUVlKS3dZQkJBR0MKTnhVSEJEQXdMZ1ltS3dZQkJBR0NOeFVJdkprK2hNT1djNE8xaHgrQ3hlVUZoK25kYW9FbmgrRHlhWVBNL1ZFQwpBV1FDQVFJd01nWURWUjBsQkNzd0tRWUhLd1lCQlFJREJRWUtLd1lCQkFHQ054UUNBZ1lJS3dZQkJRVUhBd0VHCkNDc0dBUVVGQndNQ01BNEdBMVVkRHdFQi93UUVBd0lGb0RCQUJna3JCZ0VFQVlJM0ZRb0VNekF4TUFrR0J5c0cKQVFVQ0F3VXdEQVlLS3dZQkJBR0NOeFFDQWpBS0JnZ3JCZ0VGQlFjREFUQUtCZ2dyQmdFRkJRY0RBakFkQmdOVgpIUTRFRmdRVSszYXhFblVNNnNVTFJESG1wZmoySjJYMzYxRXdId1lEVlIwakJCZ3dGb0FVcy9ZaVYxNGh1RU5vCm9wRnBodFV5cXE1ZmZOb3dnZGNHQTFVZEh3U0J6ekNCekRDQnlhQ0J4cUNCdzRhQndHeGtZWEE2THk4dlEwNDkKYkdGaUxXUmpMbXR2WkdWMmFYSjBkV0ZzTG1OdmJTeERUajFzWVdJdFpHTXNRMDQ5UTBSUUxFTk9QVkIxWW14cApZeVV5TUV0bGVTVXlNRk5sY25acFkyVnpMRU5PUFZObGNuWnBZMlZ6TEVOT1BVTnZibVpwWjNWeVlYUnBiMjRzClJFTTlhMjlrWlhacGNuUjFZV3dzUkVNOVkyOXRQMk5sY25ScFptbGpZWFJsVW1WMmIyTmhkR2x2Ymt4cGMzUS8KWW1GelpUOXZZbXBsWTNSRGJHRnpjejFqVWt4RWFYTjBjbWxpZFhScGIyNVFiMmx1ZERDQnpBWUlLd1lCQlFVSApBUUVFZ2I4d2did3dnYmtHQ0NzR0FRVUZCekFDaG9Hc2JHUmhjRG92THk5RFRqMXNZV0l0WkdNdWEyOWtaWFpwCmNuUjFZV3d1WTI5dExFTk9QVUZKUVN4RFRqMVFkV0pzYVdNbE1qQkxaWGtsTWpCVFpYSjJhV05sY3l4RFRqMVQKWlhKMmFXTmxjeXhEVGoxRGIyNW1hV2QxY21GMGFXOXVMRVJEUFd0dlpHVjJhWEowZFdGc0xFUkRQV052YlQ5agpRVU5sY25ScFptbGpZWFJsUDJKaGMyVS9iMkpxWldOMFEyeGhjM005WTJWeWRHbG1hV05oZEdsdmJrRjFkR2h2CmNtbDBlVEJDQmdOVkhSRUJBZjhFT0RBMmdoWnNZV0l0WkdNdWEyOWtaWFpwY25SMVlXd3VZMjl0Z2c5cmIyUmwKZG1seWRIVmhiQzVqYjIyQ0MwdFBSRVZXU1ZKVVZVRk1NRTRHQ1NzR0FRUUJnamNaQWdSQk1EK2dQUVlLS3dZQgpCQUdDTnhrQ0FhQXZCQzFUTFRFdE5TMHlNUzB6TlRJMU9ESTBPVEEwTFRFME16Y3pNRGsxTmpBdE5qRTNOelkyCk9UazVMVEV3TURBd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFCZ09ESGhnSHlsOVNVZHZrTlZuL21hOFdaL3UKM1YxQXJlMUF1NnpZbjRQK25CTlBpVHVJU1JNUHgycXo3RFBqZTZ5bFJ4NFJCK2p0NkhoTVdDcGhMMnFwL2NXdApkOVlXTG43RHMySnd3L0JWR05wZ3FBUlgxVzRDa3lRODhJRUNRdncyc2hOSTQrdVlaTDYzSmVhSWdqdzdKWG0zCmh6Ky9OemNOTWMzMkJQUE9OcVQ3TmxwbkFkY3JMNytkYzB5WTd1aWZmdHZFYjY2NTQ3ZndsSXkwODdQWUd4M3EKSzFqY0REZUNoMW8yVml4WVVlVzM4QXorU2hPTDdnSGROWFZ5ekU5MG5XZDRDUkdQNmVBWmU2ZjhWYWR4YitvdQpTT1c0YWo5MzJCdXAvdndYbjErdUVJYm5aY3FneVU2eTJaakFLWStuR2Q4a2loalRzNitpWGtXdm9UQT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+kind: Secret
+metadata:
+  name: ldap-ca-cert
+  namespace: group-sync-operator
+type: Opaque
+---
+apiVersion: v1
+data:
+  password: Vk13YXJlMSE=
+  username: Y249c3ZjX2VkZ2UxX2xkYXAsb3U9c2VydmljZV9hZG1pbixkYz1rb2RldmlydHVhbCxkYz1jb20=
+kind: Secret
+metadata:
+  name: ldap-group-sync
+  namespace: group-sync-operator
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ldap-secret
+stringData:
+  bindPassword: EDGE1_LDAP_PASSWORD
+type: Opaque
+---
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+  name: cluster
+spec:
+  identityProviders:
+  - ldap:
+      bindDN: CN=svc_edge1_ldap,OU=service_admin,DC=kodevirtual,DC=com
+    mappingMethod: claim
+    name: corporate-ad
+  tokenConfig:
+    accessTokenMaxAgeSeconds: 86400
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "200"
+  name: metallb-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.16.2.100-172.16.2.120
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "300"
+  name: l2-adv
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - metallb-pool
+---
+apiVersion: metallb.io/v1beta1
+kind: MetalLB
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "100"
+  name: metallb
+  namespace: metallb-system
+---
+apiVersion: nmstate.io/v1
+kind: NMState
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "100"
+  name: nmstate
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: group-sync-operator
+  namespace: group-sync-operator
+spec:
+  targetNamespaces:
+  - group-sync-operator
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: metallb-operator
+  namespace: metallb-system
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-nmstate
+  namespace: openshift-nmstate
+spec:
+  targetNamespaces:
+  - openshift-nmstate
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: loki-operator
+  namespace: openshift-operators-redhat
+spec: {}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: group-sync-operator
+  namespace: group-sync-operator
+spec:
+  channel: alpha
+  installPlanApproval: Automatic
+  name: group-sync-operator
+  source: community-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: group-sync-operator.v0.0.36
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: metallb-operator-sub
+  namespace: metallb-system
+spec:
+  channel: stable
+  name: metallb-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  name: kubernetes-nmstate-operator
+  namespace: openshift-nmstate
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: kubernetes-nmstate-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: loki-operator
+  namespace: openshift-operators-redhat
+spec:
+  channel: stable-6.3
+  name: loki-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+---
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: GroupSync
+metadata:
+  name: ldap-groupsync
+spec:
+  providers:
+  - ldap:
+      ca:
+        kind: Secret
+        name: ldap-ca-cert
+        namespace: group-sync-operator
+      credentialsSecret:
+        name: ldap-group-sync
+        namespace: group-sync-operator
+      insecure: false
+      rfc2307:
+        groupMembershipAttributes:
+        - member
+        groupNameAttributes:
+        - cn
+        groupUIDAttribute: dn
+        groupsQuery:
+          baseDN: OU=Tier 1, OU=Admins,DC=kodevirtual,DC=com
+          derefAliases: never
+          filter: (objectClass=group)
+          scope: sub
+        tolerateMemberNotFoundErrors: true
+        tolerateMemberOutOfScopeErrors: true
+        userNameAttributes:
+        - sAMAccountName
+        userUIDAttribute: dn
+        usersQuery:
+          baseDN: OU=Tier 1, OU=Admins,DC=kodevirtual,DC=com
+          derefAliases: never
+          scope: sub
+      url: ldaps://kodevirtual.com:636
+    name: ldap
+  schedule: '*/5 * * * *'

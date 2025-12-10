@@ -6,7 +6,7 @@ metadata:
   name: cluster
 spec:
   identityProviders:
-  - name: corporate-ldap
+  - name: corporate-ad
     mappingMethod: claim
     type: LDAP
     ldap:
