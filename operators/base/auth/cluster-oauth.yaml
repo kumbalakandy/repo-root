@@ -11,9 +11,9 @@ spec:
     type: LDAP
     ldap:
       attributes:
-        id: dn
-        email: mail
-        name:  cn 
+        id: [dn]
+        email: [mail]
+        name:  [cn]
         preferredUsername:  [sAMAccountName]
       bindDN: 'CN=OCP SVC Account,OU=service_admin,DC=kodevirtual,DC=com'
       bindPassword:

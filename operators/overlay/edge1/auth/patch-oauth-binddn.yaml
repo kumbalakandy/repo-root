@@ -9,9 +9,9 @@ spec:
     type: LDAP
     ldap:
       attributes:
-        id: dn
-        email: mail
-        name: cn
+        id: [dn]
+        email: [mail]
+        name: [cn]
         preferredUsername: [sAMAccountName]
       bindDN: "CN=svc_edge1_ldap,OU=service_admin,DC=kodevirtual,DC=com"
       bindPassword:
