@@ -8,4 +8,5 @@ resources:
   - auth/ldap-secret.yaml
   - auth/patch-oauth-binddn.yaml
   - group-sync/group-sync-ldap-secret.yaml
-
+patchesStrategicMerge:
+  - auth/patch-oauth-binddn.yaml

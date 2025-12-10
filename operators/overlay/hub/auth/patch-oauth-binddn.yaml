@@ -4,7 +4,8 @@ metadata:
   name: cluster
 spec:
   identityProviders:
-  - name: corporate-ldap
+  - name: corporate-ad
+    mappingMethod: claim
     ldap:
       bindDN: "CN=svc_hub_ldap,OU=service_admin,DC=kodevirtual,DC=com"
 
