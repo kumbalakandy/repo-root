@@ -6,6 +6,18 @@ spec:
   identityProviders:
   - name: corporate-ad
     mappingMethod: claim
+    type: LDAP
     ldap:
+      attributes:
+        id: dn
+        email: mail
+        name: cn
+        preferredUsername: sAMAccountName
       bindDN: "CN=svc_edge2_ldap,OU=service_admin,DC=kodevirtual,DC=com"
+      bindPassword:
+        name: ldap-secret
+      ca:
+        name: ldap-ca-config-map
+      insecure: false
+      url: 'ldaps://kodevirtual.com/DC=kodevirtual,DC=com?sAMAccountName?sub?(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(memberOf:1.2.840.113556.1.4.1941:=CN=OCP_Tenants,OU=OCP Admins,DC=kodevirtual,DC=com))'
 

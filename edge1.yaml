@@ -90,9 +90,22 @@ metadata:
 spec:
   identityProviders:
   - ldap:
+      attributes:
+        email: mail
+        id: dn
+        name: cn
+        preferredUsername: sAMAccountName
       bindDN: CN=svc_edge1_ldap,OU=service_admin,DC=kodevirtual,DC=com
+      bindPassword:
+        name: ldap-secret
+      ca:
+        name: ldap-ca-config-map
+      insecure: false
+      url: ldaps://kodevirtual.com/DC=kodevirtual,DC=com?sAMAccountName?sub?(&(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(memberOf:1.2.840.113556.1.4.1941:=CN=OCP_Tenants,OU=OCP
+        Admins,DC=kodevirtual,DC=com))
     mappingMethod: claim
     name: corporate-ad
+    type: LDAP
   tokenConfig:
     accessTokenMaxAgeSeconds: 86400
 ---
