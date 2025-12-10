@@ -34,6 +34,6 @@ spec:
           baseDN: 'OU=Tier 1, OU=Admins,DC=kodevirtual,DC=com'
           derefAliases: never
           scope: sub
-      url: 'ldaps://kodevirtual.com:636'
+      url: 'ldaps://lab-dc.kodevirtual.com'
     name: ldap
   schedule: '*/5 * * * *'
